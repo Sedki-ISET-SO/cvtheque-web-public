@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Generate from "./routes/Generate";
 import All from "./routes/All";
 import Forms from "./routes/Forms";
+import Register from "./routes/auth/register";
+import Login from "./routes/auth/login";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +18,8 @@ ReactDOM.render(
           <Route path="cvs" element={<All />} />
           <Route path="cvs/:cvId" element={<Forms />} />
           <Route path="generate" element={<Generate />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
       </Routes>
   </BrowserRouter>
   </React.StrictMode>,

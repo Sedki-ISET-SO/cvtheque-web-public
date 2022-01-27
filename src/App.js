@@ -11,15 +11,21 @@ function App() {
       <div className="pageContainer">
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js"></Worker>
         <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
-        }}
-      >
-        <Link to="generate">Generate</Link> |{" "}
-        <Link to="cvs">CVS</Link> |{" "}
-        <Link to="/">Home</Link>
-      </nav>
+          style={{
+            borderBottom: "solid 1px",
+            paddingBottom: "1rem",
+          }}
+        >
+          <Link to="generate">Generate</Link> | <Link to="cvs">CVS</Link> |{" "}
+          <Link to="/">Home</Link>
+          <button
+            onClick={() => {
+              localStorage.removeItem("realtoken");
+            }}
+          >
+            <Link to="/login">logout</Link>
+          </button>
+        </nav>
         <Files />
       </div>
     </div>

@@ -8,6 +8,7 @@ export default class AddFiles extends Component {
     this.state ={
       file:null
     }
+    
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -18,12 +19,19 @@ export default class AddFiles extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    
+    var myHeaders = new Headers();
+    let token = localStorage.getItem("realtoken");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Access-Control-Allow-Origin", "*")
+
     const formData = new FormData();
     formData.append('cv', this.state.file);
     fetch('http://localhost:8080/uploadCVFile', {
       method: 'post',
       mode: 'cors',
-      body: formData
+      body: formData,
+      headers: myHeaders,
     }).then(res => {
       if(res.ok) {
         console.log(res.data);

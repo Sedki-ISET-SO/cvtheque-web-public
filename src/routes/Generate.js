@@ -15,14 +15,14 @@ export default class Generate extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
+    var myHeaders = new Headers();
+    let token = localStorage.getItem("realtoken");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json");
     fetch("http://localhost:8080/cv", {
       method: "post",
       mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+      headers: myHeaders,
       body: JSON.stringify({
         cvFileName: this.state.cvFileName,
       }),
@@ -44,7 +44,15 @@ export default class Generate extends Component {
             paddingBottom: "1rem",
           }}
         >
-          <Link to="/generate">Generate</Link> | <Link to="/">Home</Link> | <Link to="/cvs">CVS</Link> 
+          <Link to="/generate">Generate</Link> | <Link to="/">Home</Link> |{" "}
+          <Link to="/cvs">CVS</Link>
+          <button
+            onClick={() => {
+              localStorage.removeItem("realtoken");
+            }}
+          >
+            <Link to="/login">logout</Link>
+          </button>
         </nav>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">

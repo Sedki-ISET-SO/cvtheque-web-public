@@ -1,6 +1,6 @@
 //import React, { Component } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // export default class All extends Component {
 //   constructor(props) {
@@ -72,16 +72,17 @@ function All() {
   let navigate = useNavigate();
   const [state, setState] = useState([]);
   useEffect(() => {
+    var myHeaders = new Headers();
+    let token = localStorage.getItem("realtoken");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Access-Control-Allow-Origin", "*")
     fetch("http://localhost:8080/cvs", {
       method: "GET",
-      mode: "cors",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      headers: myHeaders
     })
       .then((response) => response.json())
       .then((response) => setState(response.content));
-  });
+  }, [state]);
   return (
     <>
       <nav
@@ -91,6 +92,13 @@ function All() {
         }}
       >
         <Link to="/generate">Generate</Link> | <Link to="/">Home</Link>
+        <button
+          onClick={() => {
+            localStorage.removeItem("realtoken");
+          }}
+        >
+          <Link to="/login">logout</Link>
+        </button>
       </nav>
       <div>
         <p> started CV Files Generation: </p>

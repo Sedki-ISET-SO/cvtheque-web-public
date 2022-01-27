@@ -9,6 +9,7 @@
     "@react-pdf-viewer/get-file": "^2.11.0",
     "@react-pdf-viewer/page-navigation": "^2.11.0",
     "@react-pdf-viewer/print": "^2.11.0",
+    "@react-pdf/renderer": "^2.1.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

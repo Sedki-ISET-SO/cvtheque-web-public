@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import SingleFile from "./SingleFile";
 import AddFiles from "./AddFiles";
 
-
 export default class Files extends Component {
   constructor(props) {
     super(props);
@@ -12,12 +11,12 @@ export default class Files extends Component {
   }
 
   componentDidMount() {
+    var myHeaders = new Headers();
+    let token = localStorage.getItem("realtoken");
+    myHeaders.append("Authorization", `Bearer ${token}`);
     fetch("http://localhost:8080/getCVFiles", {
       method: "GET",
-      mode: "cors",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      headers: myHeaders,
     })
       .then((response) => response.json())
       .then((data) => this.setState({ files: data }));
@@ -33,15 +32,15 @@ export default class Files extends Component {
           <p>Uploaded CV Files: </p>
         </div>
         <div className="row" style={{ width: "400px !important" }}>
-          {this.state.files &&
-          <ul
-            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}
-          >
-            {this.state.files.map((item) => (
-              <SingleFile key={item.id} item={item} />
-            ))}
-          </ul>
-        }
+          {this.state.files && (
+            <ul
+              style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}
+            >
+              {this.state.files.map((item) => (
+                <SingleFile key={item.id} item={item} />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     );
